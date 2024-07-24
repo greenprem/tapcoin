@@ -1,0 +1,13 @@
+/* styles.css */
+@keyframes fall {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(100vh); /* or a specific value */
+  }
+}
+
+.animate-fall {
+  animation: fall 2s linear;
+}
