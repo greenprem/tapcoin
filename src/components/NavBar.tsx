@@ -3,7 +3,7 @@ import { FaCat, FaTasks, FaFire, FaChartBar } from 'react-icons/fa';
 
 const NavBar: React.FC = () => {
   return (
-    <div id='navb' className="flex justify-between items-center w-11/12 bg-green-700 p-4 fixed bottom-2 rounded-3xl mx-auto inset-x-0">
+    <div id='navb' className="flex justify-between items-center w-11/12 bg-purple-700 p-4 fixed bottom-2 rounded-3xl mx-auto inset-x-0">
       <button className="flex flex-col items-center text-white">
         <FaCat className="text-3xl" />
         <span className="text-sm mt-1">Ref</span>
