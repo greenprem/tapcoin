@@ -1,102 +1,61 @@
 'use client';
-import React, { useState, useEffect, useRef } from 'react';
-import Draggable from 'react-draggable';
+import React, { useState } from 'react';
 import './styles.css'; // Import the CSS file for the distortion effect
 
 const MainStatus: React.FC = () => {
-  const [goalCount, setGoalCount] = useState(1); // Initial goal count
-  const [balls, setBalls] = useState<{ id: number; x: number; y: number; speed: number }[]>([]);
-  const netRef = useRef<HTMLDivElement>(null);
+  const [coinCount, setCoinCount] = useState(634); // Initial coin count
+  const [distortion, setDistortion] = useState<{ x: number; y: number } | null>(null); // State to handle distortion effect
 
-  useEffect(() => {
-    const addBallInterval = setInterval(() => {
-      const id = new Date().getTime();
-      setBalls((prevBalls) => [
-        ...prevBalls,
-        { id, x: Math.random() * window.innerWidth, y: -50, speed: 0 },
-      ]);
-    }, 200);
+  const handleMouseDown = (event: React.MouseEvent<HTMLImageElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
 
-    return () => clearInterval(addBallInterval);
-  }, []);
-
-  useEffect(() => {
-    const updateBallsInterval = setInterval(() => {
-      setBalls((prevBalls) =>
-        prevBalls.map((ball) => ({
-          ...ball,
-          y: ball.y + ball.speed,
-          speed: ball.speed + 1.5, // Simulate gravity
-        }))
-      );
-
-      setBalls((prevBalls) => {
-        const net = netRef.current;
-        if (!net) return prevBalls;
-
-        const netRect = net.getBoundingClientRect();
-        return prevBalls.filter((ball) => {
-          const ballRect = document.getElementById(`ball-${ball.id}`)?.getBoundingClientRect();
-          if (!ballRect) return true;
-
-          const isInNet =
-            ballRect.x + ballRect.width > netRect.x &&
-            ballRect.x < netRect.x + netRect.width &&
-            ballRect.y + ballRect.height > netRect.y &&
-            ballRect.y < netRect.y + netRect.height;
-
-          if (isInNet) {
-            setGoalCount((prevCount) => prevCount + 1);
-            return false;
-          }
-
-          return ball.y < window.innerHeight;
-        });
-      });
-    }, 20);
-
-    return () => clearInterval(updateBallsInterval);
-  }, []);
-
-  const handleDrag = (e: any, data: any) => {
-    // Logic for dragging the goal net stand
+    setDistortion({ x, y }); // Set distortion based on click position
+    setCoinCount(coinCount + 1); // Increase the coin count
   };
 
+  const handleMouseUp = () => {
+    setDistortion(null); // Reset distortion effect after mouse release
+  };
+
+  const currentValue = 500;
+  const maxValue = 500;
+  const progressPercentage = (currentValue / maxValue) * 100;
+
   return (
-    <div className="flex flex-col min-h-screen bg-[url('/grass.png')] overflow-hidden">
-      <header className="p-4 text-center text-white">
-        <div className="text-5xl font-bold">{goalCount}</div>
-        <div className="text-lg text-gray-300">Goals</div>
-      </header>
-      <main className="relative flex-grow">
-        {balls.map((ball) => (
-          <div
-            key={ball.id}
-            id={`ball-${ball.id}`}
-            className="absolute"
-            style={{
-              left: ball.x,
-              top: ball.y,
-              transform: `scale(${1 + ball.y / window.innerHeight})`, // Scale the ball size
-            }}
-          >
-            <img
-              src="/ball.png"
-              alt="falling ball"
-              className="w-10 h-10"
-            />
+    <div className="flex flex-col items-center justify-center p-4 bg-gradient-to-r from-purple-500 to-indigo-500 min-h-screen">
+     {/* <div className="flex flex-col items-center justify-center p-4 bg-[url('/grass.png')] min-h-screen"> */}
+      <div className="text-white flex items-center space-x-2">
+        <img src="/coin.png" alt="coin" className="w-10 h-10" />
+        <span className="text-5xl font-bold">{coinCount}</span>
+      </div>
+      <div className="text-lg text-gray-300 mt-2">Bronze</div>
+      <div className="relative my-6">
+        <img 
+          src="/coin.png" 
+          alt="large coin" 
+          className={`w-50 h-50 ${distortion ? 'distorted' : ''}`} 
+          style={distortion ? {
+            transform: `translate(${distortion.x - 25}px, ${distortion.y - 25}px) scale(1.05)`,
+            transition: 'transform 0.1s ease-out'
+          } : {}}
+          onMouseDown={handleMouseDown} 
+          onMouseUp={handleMouseUp}
+        />
+      </div>
+      <div className="flex flex-col items-center mt-4">
+        <div className="flex items-center space-x-2">
+          <div className=" rounded-full p-2 text-lg font-bold text-white flex items-center space-x-1">
+            <span>300/500 ⚡</span>
           </div>
-        ))}
-      </main>
-      <footer className="flex justify-center p-4 mb-20 ml-10 mr-10 bg-transparent">
-        <Draggable axis='x' onDrag={handleDrag}>
-          <div ref={netRef}>
-            <img src="/stand.png" alt="goal net stand" className="w-50" />
-          </div>
-        </Draggable>
-      </footer>
+        </div>
+        <div className="w-full bg-gray-300 rounded-full h-3 mt-3">
+          <div className="bg-yellow-400 h-full rounded-full" style={{ width: `${40}%` }}></div>
+        </div>
+      </div>
     </div>
   );
-};
+}
 
 export default MainStatus;
