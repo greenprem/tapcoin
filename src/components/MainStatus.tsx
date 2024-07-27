@@ -27,15 +27,15 @@ const MainStatus: React.FC = () => {
     <div className="flex flex-col items-center justify-center p-4 bg-gradient-to-r from-purple-500 to-indigo-500 min-h-screen">
      {/* <div className="flex flex-col items-center justify-center p-4 bg-[url('/grass.png')] min-h-screen"> */}
       <div className="text-white flex items-center space-x-2">
-        <img src="/coin.png" alt="coin" className="w-10 h-10" />
-        <span className="text-5xl font-bold">{coinCount}</span>
+        <img src="/coin.png" alt="coin" className="w-9" />
+        <span className="text-4xl font-bold">{coinCount}</span>
       </div>
       <div className="text-lg text-gray-300 mt-2">Bronze</div>
       <div className="relative my-6">
         <img 
           src="/coin.png" 
           alt="large coin" 
-          className={`w-50 h-50 ${distortion ? 'distorted' : ''}`} 
+          className={`w-[250px] ${distortion ? 'distorted' : ''}`} 
           style={distortion ? {
             transform: `translate(${distortion.x - 25}px, ${distortion.y - 25}px) scale(1.05)`,
             transition: 'transform 0.1s ease-out'
