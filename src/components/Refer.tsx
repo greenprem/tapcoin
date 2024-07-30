@@ -37,11 +37,11 @@ const RefComponent: React.FC = () => {
             className="text-sm bg-gray-200 border border-gray-300 rounded-md p-2 text-gray-800 w-full"
           />
           <button 
-            onClick={copyToClipboard} 
-            className="bg-blue-400 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition ml-4"
-          >
-            <FaClipboard />
-          </button>
+      onClick={copyToClipboard} 
+      className="bg-blue-400 text-white px-3 py-1 rounded-md hover:bg-blue-700 transition ml-4 text-sm"
+    >
+      {copied ? 'Copied' : 'Copy'}
+    </button>
         </div>
       </div>
     </div>
