@@ -1,4 +1,3 @@
-'use client';
 // src/app/page.tsx (or equivalent entry point)
 import MainStatus from '@/components/MainStatus'; // Adjust the import path as necessary
 import NavBar from '@/components/NavBar'
