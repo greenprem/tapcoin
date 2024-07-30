@@ -1,7 +1,6 @@
 'use client';
 // src/app/page.tsx (or equivalent entry point)
 import MainStatus from '@/components/MainStatus'; // Adjust the import path as necessary
-import Header from '@/components/Header'
 import NavBar from '@/components/NavBar'
 import './globals.css'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
