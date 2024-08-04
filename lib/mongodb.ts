@@ -4,15 +4,15 @@ import mongoose from 'mongoose';
 
 const MONGODB_URI = 'mongodb://localhost:27017/yourdb'; // Replace with your actual MongoDB URI
 
-let isConnected: boolean = false;
+let isConnected = false;
 
 export const connectToDatabase = async () => {
     if (isConnected) return;
 
     try {
         await mongoose.connect(MONGODB_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
+            // useNewUrlParser and useUnifiedTopology are no longer needed
+            // any additional options can be added here if needed
         });
         isConnected = true;
         console.log('Connected to MongoDB');
