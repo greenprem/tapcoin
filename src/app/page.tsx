@@ -17,7 +17,7 @@ const HomePage: React.FC = () => {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    const tokenFromParams = searchParams.get('token');
+    const tokenFromParams = searchParams?.get('token');
     if (tokenFromParams) {
       setToken(tokenFromParams);
     }
@@ -45,9 +45,7 @@ const HomePage: React.FC = () => {
       <div className="flex-grow">
         {renderComponent()}
         <NavBar activeView={activeView} onNavClick={setActiveView} />
-        
       </div>
-
     </div>
   );
 };
