@@ -17,8 +17,13 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
         });
 
         server.listen(0, () => {
-            const port = server.address().port;
-            res.status(200).json({ wsPort: port });
+            const address = server.address();
+            if (address && typeof address === 'object') {
+                const port = address.port;
+                res.status(200).json({ wsPort: port });
+            } else {
+                res.status(500).send('Failed to get server address');
+            }
         });
     } else {
         res.status(405).send('Method not allowed');
