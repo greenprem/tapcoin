@@ -2,7 +2,7 @@
 
 import mongoose from 'mongoose';
 
-const MONGODB_URI = 'mongodb+srv://prakash34we1:gauzer7612@cluster0.lvigvny.mongodb.net/yourdb/?retryWrites=true&w=majority&appName=Cluster0'; // Replace with your actual MongoDB URI
+const MONGODB_URI = 'mongodb+srv://prakash34we1:gauzer7612@cluster0.lvigvny.mongodb.net/yourdb?retryWrites=true&w=majority&appName=Cluster0'; // Replace with your actual MongoDB URI
 
 let isConnected = false;
 
